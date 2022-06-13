@@ -1,4 +1,4 @@
-// prod.js - production keys can be commit
+// prod.js - production keys, commit this
 // use env vsariable
 module.exports = {
     googleClientID: process.env.GOOGLE_CLIENT_ID,
