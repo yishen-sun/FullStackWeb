@@ -1,40 +1,31 @@
-const express = require('express');
-const passport = require('passport');
-const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const keys = require('./config/keys');
+const express = require('express');
+const mongoose = require('mongoose');
+const cookieSession = require('cookie-session');
+const passport = require('passport'); // passport use cookiesession
+require('./models/User');
+// need to use passport.use() in passport.js
+// passport.js rely on User.js
+require('./services/passport'); 
+mongoose.connect(keys.mongoURI);
 
+const authRoutes = require('./routes/authRoutes');
 const app = express();
 
-// https://console.cloud.google.com/
-// {"web":{"client_id":"",
-//         "project_id":"fleet-parity-351014","auth_uri":"https://accounts.google.com/o/oauth2/auth",
-//         "token_uri":"https://oauth2.googleapis.com/token",
-//         "auth_provider_x509_cert_url":"https://www.googleapis.com/oauth2/v1/certs",
-//         "client_secret":"",
-//         "redirect_uris":["http://localhost:50000/auth/google/callback"],
-//         "javascript_origins":["http://localhost:50000"]}}
-passport.use(
-    new GoogleStrategy({
-        clientID: keys.googleClientID,
-        clientSecret: keys.googleClientSecret,
-        callbackURL: '/auth/google/callback',
-    },
-    // this is an arrow function =>
-    (accessToken) => {
-        console.log(accessToken);
+// cookie session extracts cookie data
+app.use(
+    cookieSession({
+        maxAge: 30 * 24 * 60 * 60 * 1000, // expire time, 30 days, 毫秒
+        keys: [keys.cookieKey] // a key to encrypt the cookie
     })
 );
+// passport use cookie
+app.use(passport.initialize());
+app.use(passport.session());
 
-app.get(
-    // first argument
-    '/auth/google', 
-    // second argument
-    passport.authenticate(
-        // use google strategy
-        'google',
-        {scope: ['profile','email']}
-    )
-);
+authRoutes(app);
+// 也可以这样写 require('./routes/authRoutes')(app); 
+
 
 /*
 // route handler, handle get request from chrome/user
