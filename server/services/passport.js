@@ -33,6 +33,7 @@ passport.use(
         clientID: keys.googleClientID,
         clientSecret: keys.googleClientSecret,
         callbackURL: '/auth/google/callback', // have to match the url on google console
+        proxy: true, // related to https http
     },
     // this is an arrow function =>
     // after redirect，we use code to get these info back from google
