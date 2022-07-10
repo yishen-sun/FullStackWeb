@@ -38,7 +38,9 @@ passport.use(
     // this is an arrow function =>
     // after redirect，we use code to get these info back from google
     // done 是 passport 的一个函数
+    /*
     (accessToken, refreshToken, profile, done) => {
+        
         User.findOne({googleId: profile.id})
             .then((existingUser) => {
                 if(existingUser) {
@@ -53,6 +55,18 @@ passport.use(
                     new User({googleId: profile.id}).save()
                         .then(user => done(null, user));
                 }
-            })
-    })
+            });
+    }*/
+    // refactor
+    async (accessToken, refreshToken, profile, done) => {
+        const existingUser = await User.findOne({googleId: profile.id});
+        if (existingUser) {
+            done(null, existingUser);
+        }
+        else {
+            const user = await new User({googleId: profile.id}).save();
+            done(null, user);
+        }
+    }
+    )
 );

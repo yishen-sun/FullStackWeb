@@ -24,12 +24,16 @@ module.exports = (app) => {
             'google'
             // google send the code to server,
             // passport use code to get info from google
-        )
+        ),
+        (req, res) => {
+            res.redirect('/surveys');
+        }
     );
     // passport will kill the cookie
     app.get('/api/logout', (req, res) => {
         req.logout();
-        res.send(req.user); // if logout, no content
+        //res.send(req.user); // if logout, no content
+        res.redirect('/');
     });
 
     // 这是一个test，访问这个地址，顺利的话，我们的server就知道目前是哪个user在访问
