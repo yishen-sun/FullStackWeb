@@ -5,6 +5,8 @@ const cookieSession = require('cookie-session');
 const passport = require('passport'); // passport use cookiesession
 const bodyParser = require('body-parser');
 require('./models/User');
+require('./models/Survey');
+
 // need to use passport.use() in passport.js
 // passport.js rely on User.js
 require('./services/passport'); 
@@ -12,6 +14,7 @@ mongoose.connect(keys.mongoURI);
 
 const authRoutes = require('./routes/authRoutes');
 const billingRoutes = require('./routes/billingRoutes');
+const surveyRoutes = require('./routes/surveyRoutes');
 const app = express();
 
 // middleware
@@ -30,6 +33,7 @@ app.use(passport.session());
 authRoutes(app);
 // 也可以这样写 require('./routes/authRoutes')(app); 
 billingRoutes(app);
+surveyRoutes(app);
 
 if (process.env.NODE_ENV === 'production') {
     // Express will serve up production assets
