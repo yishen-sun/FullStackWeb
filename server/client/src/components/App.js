@@ -6,8 +6,8 @@ import * as actions from '../actions';
 
 import Header from './Header'; // const Header = () => <h2>Header</h2>
 import Landing from './Landing'; // const Landing = () => <h2>Landing</h2>
-const Dashboard = () => <h2>Dashboard</h2>
-const SurveyNew = () => <h2>SurveyNew</h2>
+import Dashboard from './Dashboard'; // const Dashboard = () => <h2>Dashboard</h2>
+import SurveyNew from './surveys/SurveyNew'; // const SurveyNew = () => <h2>SurveyNew</h2>
 
 
 class App extends Component {
@@ -17,16 +17,15 @@ class App extends Component {
     
     render() {
         return (
+            <BrowserRouter>
             <div className='container'>
-                <BrowserRouter>
-                <div>
-                    <Header />
-                    <Route path="/" exact={true} component={Landing} />
-                    <Route path="/surveys" exact={true} component={Dashboard} />
-                    <Route path="/surveys/new" exact={true} component={SurveyNew} />
-                </div>
-                </BrowserRouter>
+                <Header />
+                <Route path="/" exact={true} component={Landing} />
+                <Route path="/surveys" exact={true} component={Dashboard} />
+                <Route path="/surveys/new" exact={true} component={SurveyNew} />
             </div>
+            </BrowserRouter>
+
         );
     }
 };

@@ -22,3 +22,10 @@ export const handleToken = (token) =>
         const res = await axios.post('/api/stripe', token);
         dispatch({type: FETCH_USER, payload: res.data});
     };
+
+export const submitSurvey = (values, history) => 
+    async (dispatch) => {
+        const res = await axios.post('/api/surveys', values);
+        history.push('/surveys'); // 作用是返回这个这个url，用history实现，
+        dispatch({type: FETCH_USER, payload: res.data});
+    };
