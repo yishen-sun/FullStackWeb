@@ -12,8 +12,8 @@ const Landing = () => {
         <h6 className="row">Instructions:</h6>
         <ol>
             <li>click "Login with Google" to register</li>
+            <li>sending one survey will consume one credit</li>
             <li>click "ADD CREDITS" to pay with credit card (please use a fake card number for testing) </li>
-            <li>sending a survey will consume one credit</li>
             <li>click "GET STARTED" to design surveys and send emails at scale</li>
         </ol>
         </div>

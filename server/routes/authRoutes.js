@@ -26,7 +26,7 @@ module.exports = (app) => {
             // passport use code to get info from google
         ),
         (req, res) => {
-            res.redirect('/surveys');
+            res.redirect('/');
         }
     );
     // passport will kill the cookie
