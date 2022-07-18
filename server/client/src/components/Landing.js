@@ -8,7 +8,7 @@ const Landing = () => {
         <div className="row center">
             <h5 className="header col s12 light">A easy way to distribute online surveys and analyse feedback</h5>
         </div>
-        <div className="row left">
+        <div className="row">
         <h6 className="row">Instructions:</h6>
         <ol>
             <li>click "Login with Google" to register</li>
